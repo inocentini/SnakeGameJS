@@ -47,7 +47,17 @@ function colisaoFruta() { //Verificar se posição da fruta colide com corpo da 
 
 
 function detectarColisoes() {
-//Implementar Função
+//Colisão da cabeça com alguma parede
+	if ((nodos[0].x < 0) || (nodos[0].x >= nx) || (nodos[0].y < 0) || (nodos[0].y >= ny)) {
+		executarGameOver(); //Game Over!
+	}
+//Colisão da cabeça com o corpo
+	for (i = 1; i < nodos.length; i++) {
+		if ((nodos[0].x == nodos[i].x) && (nodos[0].y == nodos[i].y)) {
+			executarGameOver(); //Game Over!
+		}
+	}
+
 //Comer a fruta
 	if ((nodos[0].x == xfruta) && (nodos[0].y == yfruta)) {
 		sndComer();
@@ -71,6 +81,7 @@ function detectarColisoes() {
 		novaPosFruta();
 	}
 }
+
 
 //Informações sobre o tabuleiro
 var nx =0;
@@ -148,10 +159,9 @@ function desenhar(){
 function loopPrincipal(){
 	//atualizar valores
 	moverSnake();
+	detectarColisoes(); 
 	desenhar();
 }
-
-
 
 function moverSnake(){
 	//Mover todos os nodos, exceto cabeça
@@ -205,4 +215,10 @@ function onKD(evt)
 function carregar(){
 	document.getElementById("btPausa").addEventListener("click", pausa(),false);
 	document.getElementById("btNovo").addEventListener("click", novoJogo(),false);
+}
+
+function executarGameOver() {
+	btPausa.disabled = true;
+	if (rodando)
+	pausa();
 }
