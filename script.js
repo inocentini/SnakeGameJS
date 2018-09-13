@@ -3,6 +3,8 @@ var rodando = false;
 var xfruta, yfruta;
 var relogio;
 var intervalo;
+var proxDirec = new Array();//interação usuario abaixo do intervalo ana
+proxDirec.length = 0;//intereção usuario ana
 
 function pausa(){
 	rodando = !rodando;
@@ -20,6 +22,55 @@ var canvas = document.getElementById("tela");
 var context = canvas.getContext("2d");
 var btPausa = document.getElementById("btPausa");
 
+//Sons
+function sndComer() { //Reproduzir som aleatório de comer
+	if (Math.random() < 0.8)
+		sndcomer1.play();
+	else
+		sndcomer2.play();
+}
+
+function novaPosFruta() { //Determinar uma nova posição para a fruta
+	do {
+		xfruta = Math.floor(Math.random() * nx);
+		yfruta = Math.floor(Math.random() * ny);
+	} while (colisaoFruta() == true);
+}
+
+function colisaoFruta() { //Verificar se posição da fruta colide com corpo da snake
+	for (i = 0; i < nodos.length; i++) {
+		if ((xfruta == nodos[i].x) && (yfruta == nodos[i].y))
+			return true;
+	}
+	return false;
+}
+
+
+function detectarColisoes() {
+//Implementar Função
+//Comer a fruta
+	if ((nodos[0].x == xfruta) && (nodos[0].y == yfruta)) {
+		sndComer();
+		var ultimo = nodos.length - 1;
+		nodos.push(new Nodo(nodos[ultimo].x, nodos[ultimo].y, nodos[ultimo].direc));
+		var novoultimo = ultimo + 1;
+		switch (nodos[ultimo].direc) {
+			case dbaixo:
+				nodos[novoultimo].y -= 1;
+				break;
+			case ddireita:
+				nodos[novoultimo].x -= 1;
+				break;
+			case dcima:
+				nodos[novoultimo].y += 1;
+				break;
+			case desquerda:
+				nodos[novoultimo].x += 1;
+				break;
+		}
+		novaPosFruta();
+	}
+}
 
 //Informações sobre o tabuleiro
 var nx =0;
@@ -100,6 +151,8 @@ function loopPrincipal(){
 	desenhar();
 }
 
+
+
 function moverSnake(){
 	//Mover todos os nodos, exceto cabeça
 	for(i = nodos.length - 1; i > 0; i--){
@@ -107,8 +160,46 @@ function moverSnake(){
 		nodos[i].y = nodos[i-1].y;
 		nodos[i].direc = nodos[i-1].direc;
 	}
+	//Se lista de comandos não estiver vazia, interação usuário dentro de mover snake
+	if(proxDirec.length>0)
+		//Se há uma direção diferente da atual
+		if(nodos[0].direc !=proxDirec[0])
+			//alterar a direção
+			nodos[0].direc = proxDirec[0];
 	//Executa movimento da cabeça
 	nodos[0].Mover();
+	//Enquanto houverem comandos na lista , interação com usuario abaixo de movimento da cabeça
+	while(proxDirec.length >0)
+	{//Se o comando é redundante
+		if(proxDirec[0]==nodos[0].direc)
+			proxDirec.shift();//Remove o comando do inicio da lista
+		else
+			//Se não for, para a repetição
+			break;
+	}
+}
+
+//Eventos
+document.onkeydown=onKD;
+
+function onKD(evt)
+{
+	switch(evt.keyCode)
+	{
+		case 37://esquerda
+			proxDirec.push(desquerda);
+			break;
+		case 38: //dcima
+			proxDirec.push(dcima);
+			break;
+		case 39://direita
+			proxDirec.push(ddireita);
+			break;
+		case 40://baixo
+			proxDirec.push(dbaixo);
+			break;
+		
+	}
 }
 
 function carregar(){
