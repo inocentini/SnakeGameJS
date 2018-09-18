@@ -35,6 +35,10 @@ function sndComer() { //Reproduzir som aleatório de comer
 		sndcomer2.play();
 }
 
+function sndGameOver(){
+		sndgameover.play();
+}
+
 function colisaoFruta() { //Verificar se posição da fruta colide com corpo da snake
 	for (i = 0; i < nodos.length; i++) {
 		if ((xfruta == nodos[i].x) && (yfruta == nodos[i].y))
@@ -55,12 +59,14 @@ function novaPosFruta() { //Determinar uma nova posição para a fruta
 function detectarColisoes() {
 //Colisão da cabeça com alguma parede
 	if ((nodos[0].x < 0) || (nodos[0].x >= nx) || (nodos[0].y < 0) || (nodos[0].y >= ny)) {
-		executarGameOver(); //Game Over!
+		executarGameOver();
+		sndgameover.play(); //Game Over!
 	}
 //Colisão da cabeça com o corpo
 	for (i = 1; i < nodos.length; i++) {
 		if ((nodos[0].x == nodos[i].x) && (nodos[0].y == nodos[i].y)) {
 			executarGameOver(); //Game Over!
+			sndgameover.play();
 		}
 	}
 
@@ -230,5 +236,5 @@ function carregar(){
 function executarGameOver() {
 	btPausa.disabled = true;
 	if (rodando)
-	pausa();
+		pausa();
 }
