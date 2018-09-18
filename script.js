@@ -5,6 +5,8 @@ var relogio;
 var intervalo;
 var proxDirec = new Array();//interação usuario abaixo do intervalo ana
 proxDirec.length = 0;//intereção usuario ana
+var rotacao = 0;
+
 
 function pausa(){
 	rodando = !rodando;
@@ -21,6 +23,9 @@ function pausa(){
 var canvas = document.getElementById("tela");
 var context = canvas.getContext("2d");
 var btPausa = document.getElementById("btPausa");
+var sndcomer1 = document.getElementById("comer1");
+var sndcomer2 = document.getElementById("comer2");
+var sndgameover = document.getElementById("gameover");
 
 //Sons
 function sndComer() { //Reproduzir som aleatório de comer
@@ -30,13 +35,6 @@ function sndComer() { //Reproduzir som aleatório de comer
 		sndcomer2.play();
 }
 
-function novaPosFruta() { //Determinar uma nova posição para a fruta
-	do {
-		xfruta = Math.floor(Math.random() * nx);
-		yfruta = Math.floor(Math.random() * ny);
-	} while (colisaoFruta() == true);
-}
-
 function colisaoFruta() { //Verificar se posição da fruta colide com corpo da snake
 	for (i = 0; i < nodos.length; i++) {
 		if ((xfruta == nodos[i].x) && (yfruta == nodos[i].y))
@@ -44,6 +42,14 @@ function colisaoFruta() { //Verificar se posição da fruta colide com corpo da 
 	}
 	return false;
 }
+
+function novaPosFruta() { //Determinar uma nova posição para a fruta
+	do {
+		xfruta = Math.floor(Math.random() * nx);
+		yfruta = Math.floor(Math.random() * ny);
+	} while (colisaoFruta() == true);
+}
+
 
 
 function detectarColisoes() {
@@ -150,8 +156,12 @@ function desenhar(){
 	context.fillStyle = "#FF0000";
 	xi = distancia + (xfruta * (largura + distancia)) + Math.floor(largura / 2);
 	yi = distancia + (yfruta * (largura + distancia)) + Math.floor(largura / 2);
+	rotacao += Math.PI * 0.1;
+ 	if (rotacao > Math.PI * 2)
+		rotacao -= Math.PI * 2;
+ 	var r = rotacao + (Math.PI * 1.5);
 	context.beginPath();
-	context.arc(xi,yi,distancia,0,Math.PI*2,true);
+	context.arc(xi, yi, distancia, r, rotacao, true);
 	context.closePath();
 	context.fill();
 }

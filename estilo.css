@@ -19,3 +19,7 @@ button {
 body{
 	background-color: gray;
 }
+
+audio{
+	visibility: hidden; 
+}
