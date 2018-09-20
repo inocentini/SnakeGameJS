@@ -159,15 +159,15 @@ function desenhar(){
 	}
 
 	//Desenhar a Fruta
-	context.fillStyle = "#FF0000";
-	xi = distancia + (xfruta * (largura + distancia)) + Math.floor(largura / 2);
-	yi = distancia + (yfruta * (largura + distancia)) + Math.floor(largura / 2);
+	context.fillStyle = "#cd191e";
+	xi = distancia + (xfruta * (largura + distancia)) + Math.floor(largura / 50);
+	yi = distancia + (yfruta * (largura + distancia)) + Math.floor(largura / 50);
 	rotacao += Math.PI * 0.1;
  	if (rotacao > Math.PI * 2)
-		rotacao -= Math.PI * 2;
+    	rotacao -= Math.PI * 2;
  	var r = rotacao + (Math.PI * 1.5);
 	context.beginPath();
-	context.arc(xi, yi, distancia, r, rotacao, true);
+	context.arc(xi, yi, (distancia*3), r, rotacao, true);
 	context.closePath();
 	context.fill();
 }
