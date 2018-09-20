@@ -9,13 +9,7 @@
 	display: block;
 }
 
-button {
-	padding-left: 0;
-	padding-right: 0;
-	margin-right: auto;
-	margin-left: auto;
-	display: block;
-}
+
 body{
 	background-color: gray;
 }
@@ -24,6 +18,26 @@ audio{
 	visibility: hidden; 
 }
 
-#container{
+
+#panel{
+	padding-left: 0;
+	padding-right: 0;
+	margin-right: auto;
+	margin-left: auto;
+	display: block;
 	text-align: center;
+	border: solid;
+	border-width: 3px;
 }
+
+#tablePanel{
+	padding-left: 7%;
+	padding-right: 3%;
+	margin-left: 30%;
+	margin-right: 31%;
+	margin-bottom: 5px;
+	border: solid;
+	border-width: 3px;
+	display: block;
+}
+
