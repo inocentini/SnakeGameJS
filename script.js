@@ -6,6 +6,11 @@ var intervalo;
 var proxDirec = new Array();//interação usuario abaixo do intervalo ana
 proxDirec.length = 0;//intereção usuario ana
 var rotacao = 0;
+var endGame = false;
+
+
+var imgEndGame = new Image();
+imgEndGame.src = "Resources/wasted.jpg";
 
 
 function pausa(){
@@ -60,13 +65,11 @@ function detectarColisoes() {
 //Colisão da cabeça com alguma parede
 	if ((nodos[0].x < 0) || (nodos[0].x >= nx) || (nodos[0].y < 0) || (nodos[0].y >= ny)) {
 		executarGameOver();
-		sndgameover.play(); //Game Over!
 	}
 //Colisão da cabeça com o corpo
 	for (i = 1; i < nodos.length; i++) {
 		if ((nodos[0].x == nodos[i].x) && (nodos[0].y == nodos[i].y)) {
 			executarGameOver(); //Game Over!
-			sndgameover.play();
 		}
 	}
 
@@ -107,7 +110,7 @@ criarTabuleiro();
 novoJogo();
 
 function criarTabuleiro(){
-	nx = Math.floor((canvas.width - distancia)/(largura + distancia));
+	nx = Math.floor((canvas.width - distancia) / (largura + distancia));
 	ny = Math.floor((canvas.height - distancia) / (largura + distancia));
 	borda_x = nx * (distancia + largura) + distancia;
 	borda_y = ny * (distancia + largura) + distancia;
@@ -134,6 +137,7 @@ function novoJogo(){
 	nodos.push(new Nodo(xcenter,ycenter - 2,dbaixo));
 	btPausa.innerHTML = "Iniciar";
 	btPausa.disabled = false;
+	endGame = false;
 	desenhar();
 }
 
@@ -150,26 +154,30 @@ function desenhar(){
 	context.fillRect(borda_x,0,canvas.width - 1, canvas.height - 1);
 	context.fillRect(0,borda_y,canvas.width - 1, canvas.height -1);
 
-	//Desenhar a cobra
-	context.fillStyle = "#00FF00";
-	for(var i = 0; i < nodos.length; i++){
-		xi = distancia + nodos[i].x * (largura + distancia);
-		yi = distancia + nodos[i].y * (largura + distancia);
-		context.fillRect(xi,yi,largura,largura);
-	}
+	if (!rodando && endGame == true) {
+		executarGameOver();
+    } else {
+		//Desenhar a cobra
+		context.fillStyle = "#00FF00";
+		for(var i = 0; i < nodos.length; i++){
+			xi = distancia + nodos[i].x * (largura + distancia);
+			yi = distancia + nodos[i].y * (largura + distancia);
+			context.fillRect(xi,yi,largura,largura);
+		}
 
-	//Desenhar a Fruta
-	context.fillStyle = "#cd191e";
-	xi = distancia + (xfruta * (largura + distancia)) + Math.floor(largura / 50);
-	yi = distancia + (yfruta * (largura + distancia)) + Math.floor(largura / 50);
-	rotacao += Math.PI * 0.1;
- 	if (rotacao > Math.PI * 2)
-    	rotacao -= Math.PI * 2;
- 	var r = rotacao + (Math.PI * 1.5);
-	context.beginPath();
-	context.arc(xi, yi, (distancia*3), r, rotacao, true);
-	context.closePath();
-	context.fill();
+		//Desenhar a Fruta
+		context.fillStyle = "#cd191e";
+		xi = distancia + (xfruta * (largura + distancia)) + Math.floor(largura / 2);
+		yi = distancia + (yfruta * (largura + distancia)) + Math.floor(largura / 2);
+		rotacao += Math.PI * 0.1;
+	 	if (rotacao > Math.PI * 2)
+	    	rotacao -= Math.PI * 2;
+	 	var r = rotacao + (Math.PI * 1.5);
+		context.beginPath();
+		context.arc(xi, yi, (distancia + 3), r, rotacao, true);
+		context.closePath();
+		context.fill();
+	}
 }
 
 function loopPrincipal(){
@@ -177,6 +185,19 @@ function loopPrincipal(){
 	moverSnake();
 	detectarColisoes(); 
 	desenhar();
+}
+
+//Função para fazer a cobra não ir a direção contrária.
+function dirContraria(d1, d2) {
+    if (d1 == dbaixo && d2 == dcima)
+        return true;
+    if (d1 == dcima && d2 == dbaixo)
+        return true;
+    if (d1 == ddireita && d2 == desquerda)
+        return true;
+    if (d1 == desquerda && d2 == ddireita)
+        return true;
+    return false;
 }
 
 function moverSnake(){
@@ -188,16 +209,16 @@ function moverSnake(){
 	}
 	//Se lista de comandos não estiver vazia, interação usuário dentro de mover snake
 	if(proxDirec.length>0)
-		//Se há uma direção diferente da atual
-		if(nodos[0].direc !=proxDirec[0])
+		//Se há uma direção diferente da atual e não for a direção contrária
+		if(nodos[0].direc !=proxDirec[0] && dirContraria(nodos[0].direc,  proxDirec[0]) == false)
 			//alterar a direção
 			nodos[0].direc = proxDirec[0];
 	//Executa movimento da cabeça
 	nodos[0].Mover();
 	//Enquanto houverem comandos na lista , interação com usuario abaixo de movimento da cabeça
 	while(proxDirec.length >0)
-	{//Se o comando é redundante
-		if(proxDirec[0]==nodos[0].direc)
+	{//Se o comando é redundante ou direção contrária.
+		if(proxDirec[0]==nodos[0].direc || dirContraria(nodos[0].direc,  proxDirec[0]))
 			proxDirec.shift();//Remove o comando do inicio da lista
 		else
 			//Se não for, para a repetição
@@ -233,8 +254,20 @@ function carregar(){
 	document.getElementById("btNovo").addEventListener("click", novoJogo(),false);
 }
 
+function showGameOver(){
+	    var calculateWidth = (canvas.width/2) - (imgEndGame.width/2);
+        var calculateHeight = (canvas.height/2) - (imgEndGame.height/2);
+        context.drawImage(imgEndGame, calculateWidth, calculateHeight);
+        calculateHeight = calculateHeight + (imgEndGame.height);
+}
+
 function executarGameOver() {
+	endGame = true;
+	sndgameover.play();
+	showGameOver();
 	btPausa.disabled = true;
+	sndgameover.play();
 	if (rodando)
 		pausa();
 }
+
