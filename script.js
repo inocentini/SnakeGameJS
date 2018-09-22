@@ -14,6 +14,7 @@ imgEndGame.src = "Resources/wasted.jpg";
 
 
 function pausa(){
+	proxDirec = [];
 	rodando = !rodando;
 	if(rodando){
 		btPausa.innerHTML = "Pausar";
@@ -121,6 +122,7 @@ function criarTabuleiro(){
 var nodos;
 
 function novoJogo(){
+	proxDirec = [];
 	if(rodando)
 		pausa();
 	intervalo = 200;
