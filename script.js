@@ -12,7 +12,6 @@ var endGame = false;
 var imgEndGame = new Image();
 imgEndGame.src = "Resources/wasted.jpg";
 
-
 function pausa(){
 	proxDirec = [];
 	rodando = !rodando;
@@ -232,7 +231,7 @@ function moverSnake(){
 document.onkeydown=onKD;
 
 function onKD(evt)
-{
+{ 
 	switch(evt.keyCode)
 	{
 		case 37://esquerda
@@ -247,7 +246,12 @@ function onKD(evt)
 		case 40://baixo
 			proxDirec.push(dbaixo);
 			break;
-		
+		case 32://backspace
+			pausa();
+			break;
+		case 78://n
+			novoJogo();
+			break;
 	}
 }
 
