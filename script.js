@@ -10,7 +10,7 @@ var endGame = false;
 
 
 var imgEndGame = new Image();
-imgEndGame.src = "Resources/wasted.jpg";
+imgEndGame.src = "Resources/wasted.png";
 
 function pausa(){
 	proxDirec = [];
