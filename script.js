@@ -34,6 +34,7 @@ var btPausa = document.getElementById("btPausa");
 var sndcomer1 = document.getElementById("comer1");
 var sndcomer2 = document.getElementById("comer2");
 var sndgameover = document.getElementById("gameover");
+var sndMain1 = document.getElementById("main");
 var inpPontuacao = document.getElementById("pontuacao");
 var inpVelocidade = document.getElementById("velocidade");
 
@@ -47,6 +48,10 @@ function sndComer() { //Reproduzir som aleatório de comer
 
 function sndGameOver(){
 		sndgameover.play();
+}
+
+function sndMain(){
+	sndMain1.play();
 }
 
 function colisaoFruta() { //Verificar se posição da fruta colide com corpo da snake
@@ -205,6 +210,7 @@ function loopPrincipal(){
 	moverSnake();
 	detectarColisoes(); 
 	desenhar();
+	sndMain();
 }
 
 //Função para fazer a cobra não ir a direção contrária.
