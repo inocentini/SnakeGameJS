@@ -7,6 +7,9 @@ var proxDirec = new Array();//interação usuario abaixo do intervalo ana
 proxDirec.length = 0;//intereção usuario ana
 var rotacao = 0;
 var endGame = false;
+var pontuacao;
+var velocidade;
+var contadorFrutas=0;
 
 
 var imgEndGame = new Image();
@@ -31,6 +34,8 @@ var btPausa = document.getElementById("btPausa");
 var sndcomer1 = document.getElementById("comer1");
 var sndcomer2 = document.getElementById("comer2");
 var sndgameover = document.getElementById("gameover");
+var inpPontuacao = document.getElementById("pontuacao");
+var inpVelocidade = document.getElementById("velocidade");
 
 //Sons
 function sndComer() { //Reproduzir som aleatório de comer
@@ -93,6 +98,17 @@ function detectarColisoes() {
 				nodos[novoultimo].x += 1;
 				break;
 		}
+		pontuacao += 10;
+		inpPontuacao.value = pontuacao;
+		contadorFrutas++;
+		if(contadorFrutas >=10) {
+			intervalo -= 10;
+			clearInterval(relogio);
+			relogio = setInterval("loopPrincipal()", intervalo);
+			velocidade += 1;
+			inpVelocidade.value = velocidade;
+			contadorFrutas = 0;
+		}
 		novaPosFruta();
 	}
 }
@@ -121,6 +137,9 @@ function criarTabuleiro(){
 var nodos;
 
 function novoJogo(){
+	pontuacao = velocidade = 0;
+	inpPontuacao.value = pontuacao;
+	inpVelocidade.value = velocidade;
 	proxDirec = [];
 	if(rodando)
 		pausa();

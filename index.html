@@ -42,12 +42,17 @@
 			</table>
 		</div>
 		<canvas id="tela" width="640" height="480">Navegador não suportado!</canvas><br>
-
-		<button id="btPausa" onclick="pausa()" type="button">Iniciar</button>
-		<button id="btNovo" onclick="novoJogo()" type="button">Novo Jogo</button>
+		<form action="">
+			<label for="velocidade">Speed
+				<input type="number" disabled id="velocidade">
+			</label>
+			<label for="pontuacao">Score
+				<input type="number" disabled id="pontuacao">
+			</label>
+			<button id="btPausa" onclick="pausa()" type="button">Iniciar</button>
+			<button id="btNovo" onclick="novoJogo()" type="button">Novo Jogo</button>
+		</form>	
 	</div>
-
-	
 
 	<audio controls id= "comer1">
 		<source src= "Resources/cp.mp3" type="audio/mpeg">
