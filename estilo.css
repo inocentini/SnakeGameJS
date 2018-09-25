@@ -58,7 +58,6 @@ img{
 }
 
 #tela{
-	/*background-image: url("Resources/snake.jpg");*/
 	background-color: #c3c3c3c3;
 	border-style: solid;
 	border-color: #FAFAFA;
@@ -83,18 +82,17 @@ input{
 
 button {
 	font-family: 'ArcadeR';
-  display: inline-block;
-  padding: 5px 15px;
-  font-size: 14px;
-  cursor: pointer;
-  text-align: center;	
-  text-decoration: none;
-  outline: none;
-  color: #fff;
+  	display: inline-block;
+  	padding: 5px 15px;
+  	font-size: 14px;
+  	cursor: pointer;
+  	text-align: center;	
+  	text-decoration: none;
+  	outline: none;
+  	color: #fff;
 	background-color: #4CAF50;
-	/* background-color: none; */
-  border: none;
-  border-radius: 15px;
+	border: none;
+  	border-radius: 15px;
 }
 
 p{

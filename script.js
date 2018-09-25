@@ -54,7 +54,7 @@ function sndGameOver(){
 
 function sndMain(){
 	if(rodando){
-		sndMain1.volume = 0.2;
+		sndMain1.volume = 0.5;
 		sndMain1.play();
 		sndMain1.loop = true;
 	}else{
@@ -318,10 +318,9 @@ function showGameOver(){
 
 function executarGameOver() {
 	endGame = true;
-	sndgameover.play();
+	sndGameOver()
 	showGameOver();
 	btPausa.disabled = true;
-	sndgameover.play();
 	if (rodando)
 		pausa();
 }
@@ -339,7 +338,7 @@ function showFimJogo(){
 	
 function executarFimJogo() {
 	endGame = true;
-	sndfimjogo.play();
+	sndfimjogo();
 	showGameOver();
 	btPausa.disabled();
 	sndfimjogo.play();
