@@ -8,19 +8,25 @@
 </head>
 <body>
 	<div id="panel">
-		<h1>IFSP - Campus São Carlos</h1>
+		<h2>IFSP - Campus Sao Carlos</h2>
 		<h3> Desenvolvimento para Web 1</h3>
-		<canvas id="tela" width="640" height="480">Navegador não suportado!</canvas><br>
-		<form action="">
-			<label for="velocidade">Speed
-				<input type="number" disabled id="velocidade">
-			</label>
-			<label for="pontuacao">Score
-				<input type="number" disabled id="pontuacao">
-			</label>
-			<button id="btPausa" onclick="pausa()" type="button">Iniciar</button>
-			<button id="btNovo" onclick="novoJogo()" type="button">Novo Jogo</button>
+		<form>
+				<label for="velocidade">Speed:
+					<input type="number" disabled id="velocidade">
+				</label>
+				<label for="pontuacao">Score:
+					<input type="number" disabled id="pontuacao">
+				</label>
+				<button id="btPausa" onclick="pausa()" type="button">Iniciar</button>
+				<button id="btNovo" onclick="novoJogo()" type="button">Novo Jogo</button>
 		</form>	
+		<canvas id="tela" width="640" height="480">Navegador não suportado!</canvas>
+		<div id="tutorial">
+			<img src="Resources/Arrow_keys_transparent.png">
+			<p>= Movimentacao</p><br>
+			<p>N = Novo Jogo</p><br>
+			<p>BACKSPACE = Iniciar/Pausar</p>
+		</div>
 	</div>
 	<audio controls id= "comer1">
 		<source src= "Resources/cp.mp3" type="audio/mpeg">
@@ -42,7 +48,7 @@
 	<script src="nodo.js"></script>
 	<script src="script.js"></script>
 	<div id="footer">
-		<p>MATEUS FELIPE INOCENTINI 1602128		RUI DONIZETE DE MATTOS OLIVEIRA JUNIOR	120324X		ANA PAULA JULIO DE LIMA	1602152		ANA PAULA DE OLIVEIRA	1502972		KALEO APARECIDO PIASSE	1500686</p>
+		<p>MATEUS FELIPE INOCENTINI 1602128		RUI DONIZETE DE MATTOS OLIVEIRA JUNIOR	120324X <br>		ANA PAULA JULIO DE LIMA	1602152		ANA PAULA DE OLIVEIRA	1502972		KALEO APARECIDO PIASSE	1500686</p>
 	</div>
 </body>
 </html>
