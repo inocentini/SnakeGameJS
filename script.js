@@ -268,7 +268,7 @@ function onKD(evt)
 { 
 	switch(evt.keyCode)
 	{
-		case 37://esquerda
+		/*case 37://esquerda
 			proxDirec.push(desquerda);
 			break;
 		case 38: //dcima
@@ -279,12 +279,27 @@ function onKD(evt)
 			break;
 		case 40://baixo
 			proxDirec.push(dbaixo);
-			break;
+			break;*/
 		case 32://backspace
-			pausa();
+			if(endGame)
+				return;
+			else
+				pausa();
 			break;
 		case 78://n
 			novoJogo();
+			break;
+		case 87: //Cima W
+			proxDirec.push(dcima);
+			break;
+		case 65://Esquerda A
+			proxDirec.push(desquerda);
+			break;
+		case 68: //Direita D
+			proxDirec.push(ddireita);
+			break;
+		case 83: //Baixo S
+			proxDirec.push(dbaixo);
 			break;
 	}
 }
@@ -326,9 +341,9 @@ function executarFimJogo() {
 	endGame = true;
 	sndfimjogo.play();
 	showGameOver();
-	btPausa.disabled = true;
+	btPausa.disabled();
 	sndfimjogo.play();
 	if (rodando)
-	pausa();
+		pausa();
 }
 
