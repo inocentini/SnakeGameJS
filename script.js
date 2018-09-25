@@ -13,6 +13,8 @@ var contadorFrutas=0;
 
 var imgEndGame = new Image();
 imgEndGame.src = "Resources/wasted.png";
+var imgFimJogo = new Image();
+imgFimJogo.src = "Resources/victory.png";
 
 function pausa(){
 	proxDirec = [];
@@ -36,6 +38,7 @@ var sndgameover = document.getElementById("gameover");
 var sndMain1 = document.getElementById("main");
 var inpPontuacao = document.getElementById("pontuacao");
 var inpVelocidade = document.getElementById("velocidade");
+var sndfimjogo = document.getElementById("fimjogo");
 
 //Sons
 function sndComer() { //Reproduzir som aleatório de comer
@@ -306,5 +309,26 @@ function executarGameOver() {
 	sndgameover.play();
 	if (rodando)
 		pausa();
+}
+
+function sndfimjogo(){
+	sndfimjogo.play();
+}
+	
+function showFimJogo(){
+	var calculateWidth = (canvas.width/2) - (imgFimJogo.width/2);
+	var calculateHeight = (canvas.height/2) - (imgFimJogo.height/2);
+	context.drawImage(imgFimJogo, calculateWidth, calculateHeight);
+	calculateHeight = calculateHeight + (imgFimJogo.height);
+}
+	
+function executarFimJogo() {
+	endGame = true;
+	sndfimjogo.play();
+	showGameOver();
+	btPausa.disabled = true;
+	sndfimjogo.play();
+	if (rodando)
+	pausa();
 }
 
