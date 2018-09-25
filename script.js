@@ -209,12 +209,13 @@ function loopPrincipal(){
 	moverSnake();
 	detectarColisoes(); 
 	desenhar();
-	if(rodando || novoJogo()){
+	/*if(rodando || novoJogo()){
 		sndMain1.play();
 		sndMain1.loop = true;
 		sndMain1.muted = false;
 	}else
 		sndMain1.muted = true;
+		*/
 }
 
 //Função para fazer a cobra não ir a direção contrária.
