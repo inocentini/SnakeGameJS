@@ -50,7 +50,13 @@ function sndGameOver(){
 }
 
 function sndMain(){
-	sndMain1.play();
+	if(rodando){
+		sndMain1.volume = 0.2;
+		sndMain1.play();
+		sndMain1.loop = true;
+	}else{
+		sndMain1.load();
+	}
 }
 
 function colisaoFruta() { //Verificar se posição da fruta colide com corpo da snake
@@ -145,6 +151,7 @@ function novoJogo(){
 	inpPontuacao.value = pontuacao;
 	inpVelocidade.value = velocidade;
 	proxDirec = [];
+	sndMain1.load();
 	if(rodando)
 		pausa();
 	intervalo = 200;
@@ -209,13 +216,7 @@ function loopPrincipal(){
 	moverSnake();
 	detectarColisoes(); 
 	desenhar();
-	/*if(rodando || novoJogo()){
-		sndMain1.play();
-		sndMain1.loop = true;
-		sndMain1.muted = false;
-	}else
-		sndMain1.muted = true;
-		*/
+	sndMain();
 }
 
 //Função para fazer a cobra não ir a direção contrária.
