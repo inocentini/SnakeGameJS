@@ -210,7 +210,11 @@ function loopPrincipal(){
 	moverSnake();
 	detectarColisoes(); 
 	desenhar();
-	sndMain();
+	if(rodando){
+		sndMain1.muted = false;
+		sndMain1.play();
+	}else
+		sndMain1.muted = true;
 }
 
 //Função para fazer a cobra não ir a direção contrária.
