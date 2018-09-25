@@ -11,7 +11,6 @@ var pontuacao;
 var velocidade;
 var contadorFrutas=0;
 
-
 var imgEndGame = new Image();
 imgEndGame.src = "Resources/wasted.png";
 
@@ -183,7 +182,7 @@ function desenhar(){
 		executarGameOver();
     } else {
 		//Desenhar a cobra
-		context.fillStyle = "#00FF00";
+		context.fillStyle = "#037214";
 		for(var i = 0; i < nodos.length; i++){
 			xi = distancia + nodos[i].x * (largura + distancia);
 			yi = distancia + nodos[i].y * (largura + distancia);
@@ -210,9 +209,10 @@ function loopPrincipal(){
 	moverSnake();
 	detectarColisoes(); 
 	desenhar();
-	if(rodando){
-		sndMain1.muted = false;
+	if(rodando || novoJogo()){
 		sndMain1.play();
+		sndMain1.loop = true;
+		sndMain1.muted = false;
 	}else
 		sndMain1.muted = true;
 }
