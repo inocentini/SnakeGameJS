@@ -15,6 +15,8 @@ var imgEndGame = new Image();
 imgEndGame.src = "Resources/wasted.png";
 var imgFimJogo = new Image();
 imgFimJogo.src = "Resources/victory.png";
+var imgApple = new Image();
+imgApple.src = "Resources/apple8.png";
 
 function pausa(){
 	proxDirec = [];
@@ -200,15 +202,16 @@ function desenhar(){
 		}
 
 		//Desenhar a Fruta
-		context.fillStyle = "#cd191e";
-		xi = distancia + (xfruta * (largura + distancia)) + Math.floor(largura / 2);
-		yi = distancia + (yfruta * (largura + distancia)) + Math.floor(largura / 2);
-		rotacao += Math.PI * 0.1;
+		/*context.fillStyle = "#cd191e";*/
+		xi = distancia + (xfruta * (largura + distancia));
+        yi = distancia + (yfruta * (largura + distancia));
+		/*rotacao += Math.PI * 0.1;
 	 	if (rotacao > Math.PI * 2)
 	    	rotacao -= Math.PI * 2;
-	 	var r = rotacao + (Math.PI * 1.5);
+	 	var r = rotacao + (Math.PI * 1.5);*/
 		context.beginPath();
-		context.arc(xi, yi, (distancia + 3), r, rotacao, true);
+		//context.arc(xi, yi, (distancia + 3), r, rotacao, true);
+		context.drawImage(imgApple, xi, yi, largura, largura);
 		context.closePath();
 		context.fill();
 	}
