@@ -138,7 +138,7 @@ function detectarColisoes() {
 var nx =0;
 var ny = 0;
 var largura = 20;
-var distancia = 5;
+var distancia = 1;
 var borda_x, borda_y;
 
 //Inicializações
@@ -194,6 +194,8 @@ function desenhar(){
 	context.fillStyle = "#888888";
 	context.fillRect(borda_x,0,canvas.width - 1, canvas.height - 1);
 	context.fillRect(0,borda_y,canvas.width - 1, canvas.height -1);
+
+	//Exemplo quando se ganha o jogo
 	if(pontuacao == 200){
 		executarFimJogo();
 	}else{
