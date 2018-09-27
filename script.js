@@ -40,7 +40,6 @@ var sndgameover = document.getElementById("gameover");
 var sndMain1 = document.getElementById("main");
 var inpPontuacao = document.getElementById("pontuacao");
 var inpVelocidade = document.getElementById("velocidade");
-var sndfimjogo = document.getElementById("fimjogo");
 
 //Sons
 function sndComer() { //Reproduzir som aleatório de comer
@@ -63,6 +62,7 @@ function sndMain(){
 		sndMain1.load();
 	}
 }
+
 
 function colisaoFruta() { //Verificar se posição da fruta colide com corpo da snake
 	for (i = 0; i < nodos.length; i++) {
@@ -116,8 +116,8 @@ function detectarColisoes() {
 		pontuacao += 10;
 		inpPontuacao.value = pontuacao;
 		contadorFrutas++;
-		if(contadorFrutas >=10) {
-			intervalo -= 10;
+		if(contadorFrutas >=5) {
+			intervalo -= 5;
 			clearInterval(relogio);
 			relogio = setInterval("loopPrincipal()", intervalo);
 			velocidade += 1;
@@ -189,31 +189,34 @@ function desenhar(){
 	context.fillStyle = "#888888";
 	context.fillRect(borda_x,0,canvas.width - 1, canvas.height - 1);
 	context.fillRect(0,borda_y,canvas.width - 1, canvas.height -1);
+	if(pontuacao == 200){
+		executarFimJogo();
+	}else{
+		if (!rodando && endGame == true) {
+			executarGameOver();
+		} else {
+			//Desenhar a cobra
+			context.fillStyle = "#037214";
+			for(var i = 0; i < nodos.length; i++){
+				xi = distancia + nodos[i].x * (largura + distancia);
+				yi = distancia + nodos[i].y * (largura + distancia);
+				context.fillRect(xi,yi,largura,largura);
+			}
 
-	if (!rodando && endGame == true) {
-		executarGameOver();
-    } else {
-		//Desenhar a cobra
-		context.fillStyle = "#037214";
-		for(var i = 0; i < nodos.length; i++){
-			xi = distancia + nodos[i].x * (largura + distancia);
-			yi = distancia + nodos[i].y * (largura + distancia);
-			context.fillRect(xi,yi,largura,largura);
+			//Desenhar a Fruta
+			/*context.fillStyle = "#cd191e";*/
+			xi = distancia + (xfruta * (largura + distancia));
+			yi = distancia + (yfruta * (largura + distancia));
+			/*rotacao += Math.PI * 0.1;
+			if (rotacao > Math.PI * 2)
+				rotacao -= Math.PI * 2;
+			var r = rotacao + (Math.PI * 1.5);*/
+			context.beginPath();
+			//context.arc(xi, yi, (distancia + 3), r, rotacao, true);
+			context.drawImage(imgApple, xi, yi, largura, largura);
+			context.closePath();
+			context.fill();
 		}
-
-		//Desenhar a Fruta
-		/*context.fillStyle = "#cd191e";*/
-		xi = distancia + (xfruta * (largura + distancia));
-        yi = distancia + (yfruta * (largura + distancia));
-		/*rotacao += Math.PI * 0.1;
-	 	if (rotacao > Math.PI * 2)
-	    	rotacao -= Math.PI * 2;
-	 	var r = rotacao + (Math.PI * 1.5);*/
-		context.beginPath();
-		//context.arc(xi, yi, (distancia + 3), r, rotacao, true);
-		context.drawImage(imgApple, xi, yi, largura, largura);
-		context.closePath();
-		context.fill();
 	}
 }
 
@@ -321,15 +324,11 @@ function showGameOver(){
 
 function executarGameOver() {
 	endGame = true;
-	sndGameOver()
+	sndGameOver();
 	showGameOver();
 	btPausa.disabled = true;
 	if (rodando)
 		pausa();
-}
-
-function sndfimjogo(){
-	sndfimjogo.play();
 }
 	
 function showFimJogo(){
@@ -341,10 +340,8 @@ function showFimJogo(){
 	
 function executarFimJogo() {
 	endGame = true;
-	sndfimjogo();
-	showGameOver();
-	btPausa.disabled();
-	sndfimjogo.play();
+	showFimJogo();
+	btPausa.disabled = true;
 	if (rodando)
 		pausa();
 }
