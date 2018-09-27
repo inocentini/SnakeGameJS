@@ -38,6 +38,7 @@ var sndcomer1 = document.getElementById("comer1");
 var sndcomer2 = document.getElementById("comer2");
 var sndgameover = document.getElementById("gameover");
 var sndMain1 = document.getElementById("main");
+var sndFimJogo1 = document.getElementById("fimjogo");
 var inpPontuacao = document.getElementById("pontuacao");
 var inpVelocidade = document.getElementById("velocidade");
 
@@ -61,6 +62,10 @@ function sndMain(){
 	}else{
 		sndMain1.load();
 	}
+}
+
+function sndFimJogo(){
+	sndFimJogo1.play();
 }
 
 
@@ -340,6 +345,7 @@ function showFimJogo(){
 	
 function executarFimJogo() {
 	endGame = true;
+	sndFimJogo();
 	showFimJogo();
 	btPausa.disabled = true;
 	if (rodando)
